@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Center - Product Plug</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #1a0033 0%, #0a0a0a 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            display: block;
+            object-fit: contain;
+        }
+
+        h1 {
+            color: #A100FF;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            scrollbar-width: thin;
+            scrollbar-color: #A100FF #1a1a1a;
+        }
+
+        .tabs::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .tabs::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 4px;
+        }
+
+        .tabs::-webkit-scrollbar-thumb {
+            background: #A100FF;
+            border-radius: 4px;
+        }
+
+        .tab-button {
+            background: #1a1a1a;
+            color: #888;
+            border: 2px solid #333;
+            padding: 12px 24px;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background: #252525;
+            color: #c966ff;
+            border-color: #A100FF;
+        }
+
+        .tab-button.active {
+            background: #A100FF;
+            color: white;
+            border-color: #A100FF;
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            background: #151515;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(161, 0, 255, 0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #A100FF;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+        }
+
+        h3 {
+            color: #c966ff;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            color: #d88fff;
+            font-size: 1.1em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #d0d0d0;
+        }
+
+        .highlight {
+            color: #A100FF;
+            font-weight: 600;
+        }
+
+        .contact-box {
+            background: #1a1a1a;
+            border-left: 4px solid #A100FF;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #1a0033 0%, #1a1a1a 100%);
+            border: 2px solid #A100FF;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+        }
+
+        a {
+            color: #A100FF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #c966ff;
+            text-decoration: underline;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        strong {
+            color: #A100FF;
+        }
+
+        @media (max-width: 768px) {
+            .tab-content {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+
+            .tabs {
+                gap: 5px;
+            }
+
+            .tab-button {
+                padding: 10px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="assets/applogo/productplug.png" alt="Product Plug Logo" class="logo">
+        <h1>Policy Center</h1>
+        <p class="subtitle">Everything you need to know about shopping with Product Plug</p>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'shipping')">Shipping</button>
+            <button class="tab-button" onclick="openTab(event, 'returns')">Returns & Refunds</button>
+            <button class="tab-button" onclick="openTab(event, 'privacy')">Privacy Policy</button>
+            <button class="tab-button" onclick="openTab(event, 'promo')">Promo Codes</button>
+            <button class="tab-button" onclick="openTab(event, 'negotiation')">Price Match</button>
+            <button class="tab-button" onclick="openTab(event, 'referral')">Referral Program</button>
+            <button class="tab-button" onclick="openTab(event, 'donation')">Toy Donation</button>
+        </div>
+
+        <!-- Shipping Policy -->
+        <div id="shipping" class="tab-content active">
+            <h2>Shipping Policy</h2>
+
+            <div class="section">
+                <h3>Processing Time</h3>
+                <p>All orders are processed within 3–5 business days. Once your order is processed, you will receive a tracking number to monitor your shipment.</p>
+            </div>
+
+            <div class="section">
+                <h3>Shipping Carriers</h3>
+                <p>We use reliable carriers including USPS, UPS, and FedEx to ensure your order is delivered safely and efficiently.</p>
+            </div>
+
+            <div class="section">
+                <h3>Delivery Times</h3>
+                <ul>
+                    <li><strong>Express Items:</strong> 5–10 business days</li>
+                    <li><strong>Standard Items:</strong> 2–4 weeks</li>
+                </ul>
+                <p>Delivery times may vary depending on product availability and shipping destination. Standard items may require additional time to source before shipment.</p>
+            </div>
+
+            <div class="section">
+                <h3>Shipping Costs</h3>
+                <p>Shipping costs are calculated at checkout based on your order and delivery location. Occasionally, promotional codes for free shipping may be offered.</p>
+            </div>
+
+            <div class="section">
+                <h3>Lost or Damaged Packages</h3>
+                <p>If your order is lost or arrives damaged, we provide store credit or a replacement (if the item is in stock). Please note that refunds are not available. Contact our support team promptly to resolve any issues.</p>
+            </div>
+
+            <div class="contact-box">
+                <h3>Contact Us</h3>
+                <p>For questions regarding your order or shipping, please contact our support team — we're here to help.</p>
+                <p>Email: <a href="mailto:officialproductplug@gmail.com">officialproductplug@gmail.com</a></p>
+            </div>
+        </div>
+
+        <!-- Returns & Refunds Policy -->
+        <div id="returns" class="tab-content">
+            <h2>Refund & Return Policy</h2>
+
+            <div class="section">
+                <h3>Return Eligibility</h3>
+                <ul>
+                    <li>Returns are accepted within 14 days of the order date.</li>
+                    <li>All returns are issued as store credit only (no cash refunds).</li>
+                    <li>A receipt or order confirmation email is required for all returns.</li>
+                    <li>No returns are accepted without proof of purchase.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Condition Requirements</h3>
+                <ul>
+                    <li>Items must be unused, unopened, and in their original packaging.</li>
+                    <li>Items will be inspected upon return; store credit will be issued only after approval.</li>
+                    <li>Please allow 3–5 business days for processing after the returned item is received.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Non-Returnable Items</h3>
+                <p>The following items cannot be returned:</p>
+                <ul>
+                    <li>Cosmetics and personal care items</li>
+                    <li>Food, snacks, and beverages</li>
+                    <li>Intimate apparel</li>
+                    <li>Seasonal items</li>
+                    <li>Electronic accessories</li>
+                    <li>Bundled items once opened</li>
+                    <li>Clearance or final-sale items</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Exchanges</h3>
+                <ul>
+                    <li>Exchanges may be made for an item of equal or lower value.</li>
+                    <li>Exchanges follow the same 14-day and condition requirements.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Shipping Costs</h3>
+                <ul>
+                    <li>Customer-preference returns require the customer to pay return shipping.</li>
+                    <li>If the issue is on our end (wrong item or damaged item), a $10 credit will be issued toward a future $50 purchase.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Damaged or Incorrect Items</h3>
+                <ul>
+                    <li>Contact us within 48 hours of delivery.</li>
+                    <li>Provide photos and your order number.</li>
+                    <li>Once verified, you will receive $10 off your next order of $50 or more.</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>Store Credit</h3>
+                <ul>
+                    <li>Store credit may be used toward any future purchase.</li>
+                    <li>Store credit cannot be exchanged for cash.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Privacy Policy -->
+        <div id="privacy" class="tab-content">
+            <h2>Privacy Policy</h2>
+            <p class="subtitle">Effective Date: December 1, 2025</p>
+
+            <div class="section">
+                <h3>1. Introduction</h3>
+                <p>This Privacy Policy explains how Product Plug Inc. ("we," "us," or "our") collects, uses, shares, and protects personal information when you use the Product Plug mobile application and related services.</p>
+                <p>By using Product Plug, you agree to the practices described in this Policy.</p>
+            </div>
+
+            <div class="section">
+                <h3>2. Information We Collect</h3>
+                
+                <h4>A. Information You Provide</h4>
+                <ul>
+                    <li>Name, email address, phone number</li>
+                    <li>Shipping and billing address</li>
+                    <li>Password or login credentials (secured & encrypted)</li>
+                    <li>Uploaded images (product photos, listings, profile images)</li>
+                </ul>
+
+                <h4>Apple / Google Sign-In</h4>
+                <p>If you sign in using Apple or Google, we receive your name (if shared), email address, and user ID. We do not receive your Apple/Google password.</p>
+
+                <h4>B. Payment Information</h4>
+                <p>Payments are processed by <span class="highlight">Stripe</span>. We do not store or have access to full credit card numbers. Stripe's privacy policy applies to all transactions.</p>
+
+                <h4>C. Automatically Collected Information</h4>
+                <p>Through Firebase and similar tools, we automatically collect device type, IP address, app usage data, analytics, crash logs, cookies, and push notification tokens to improve performance and user experience.</p>
+
+                <h4>D. No GPS Location Collected</h4>
+                <p>Product Plug does not collect real-time GPS location. We only collect addresses you manually provide for shipping purposes.</p>
+            </div>
+
+            <div class="section">
+                <h3>3. How We Use Your Information</h3>
+                <ul>
+                    <li>Create and manage your account</li>
+                    <li>Process and deliver orders</li>
+                    <li>Send order confirmations and updates</li>
+                    <li>Provide customer support</li>
+                    <li>Prevent fraud and protect user safety</li>
+                    <li>Improve the App and user experience</li>
+                    <li>Analyze usage through Firebase Analytics</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>4. Third-Party Services</h3>
+                <ul>
+                    <li><strong>Stripe</strong> – payment processing</li>
+                    <li><strong>Firebase (Google)</strong> – authentication, database, analytics, crashlytics</li>
+                    <li><strong>Cloudinary</strong> – storage and hosting of uploaded photos</li>
+                    <li><strong>Shipping Carriers</strong> – UPS, FedEx, USPS</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>5. How We Share Information</h3>
+                <p><strong>We do NOT:</strong></p>
+                <ul>
+                    <li>Sell personal information</li>
+                    <li>Share personal information with advertisers</li>
+                    <li>Use Meta Pixel, Amazon Ads, or similar ad trackers</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>9. Your Privacy Rights</h3>
+                <p>If you are a U.S. resident, certain states grant the following rights:</p>
+                <ul>
+                    <li>Request access to your data</li>
+                    <li>Request deletion of your data</li>
+                    <li>Request correction of inaccurate data</li>
+                    <li>Opt-out of data sharing (we do not sell or share your data)</li>
+                </ul>
+            </div>
+
+            <div class="contact-box">
+                <p><strong>Product Plug Inc.</strong></p>
+                <p>Email: <a href="mailto:officialproductplug@gmail.com">officialproductplug@gmail.com</a></p>
+            </div>
+        </div>
+
+        <!-- Promo Codes Policy -->
+        <div id="promo" class="tab-content">
+            <h2>Marketing & Promo Code Policy</h2>
+
+            <div class="section">
+                <h3>1. Eligibility</h3>
+                <p>Promo codes are offered at specific times or to users who meet certain qualifications. Users must:</p>
+                <ul>
+                    <li>Have an active account in good standing</li>
+                    <li>Meet any eligibility requirements specified with the promo code</li>
+                    <li>Be located within the United States</li>
+                </ul>
+                <p>Promo codes are not transferable and are valid only for the intended recipient unless otherwise specified. Users under 18 must have parental or guardian consent to participate in any promotion.</p>
+            </div>
+
+            <div class="section">
+                <h3>2. Promo Code Terms</h3>
+                <ul>
+                    <li>Promo codes may have expiration dates and may be limited to a set number of redemptions</li>
+                    <li>Each promo code is valid only for orders of $30 or more, unless otherwise stated</li>
+                    <li>Promo codes are typically limited to one per account and cannot be combined with other promotions unless explicitly stated</li>
+                    <li>Promo codes cannot be redeemed for cash or applied to past orders</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>3. Redemption</h3>
+                <ul>
+                    <li>Promo codes must be entered or applied during checkout to receive the discount</li>
+                    <li>Discounts apply to the total order value, not including shipping fees, unless specified otherwise</li>
+                    <li>Product Plug reserves the right to refuse or cancel any promo code redemption if the order does not meet eligibility requirements or minimum purchase thresholds</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>4. Limitations & Exclusions</h3>
+                <ul>
+                    <li>No items are excluded from promo codes unless specifically noted in the promo code description</li>
+                    <li>Promo codes cannot exceed the total value of the order. Any remaining value is forfeited and cannot be applied to future purchases</li>
+                    <li>Product Plug reserves the right to cancel or modify a promotion if an error occurs or if the promotion is used fraudulently</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>5. Abuse & Misuse</h3>
+                <p>Abuse or misuse of promo codes, including but not limited to creating multiple accounts, attempting to manipulate promotions, or fraudulent activity, may result in:</p>
+                <ul>
+                    <li>Cancellation of promo code redemption</li>
+                    <li>Suspension or termination of the user account</li>
+                    <li>Legal action if applicable</li>
+                </ul>
+                <p>Product Plug reserves the right to investigate and enforce promotional rules at its sole discretion.</p>
+            </div>
+
+            <div class="info-box">
+                <h3>6. Modifications & Termination</h3>
+                <p>Product Plug may modify, limit, or terminate any promotion or promo code at any time without prior notice. Users are responsible for reviewing promotion terms and conditions before redemption.</p>
+            </div>
+        </div>
+
+        <!-- Price Match Policy -->
+        <div id="negotiation" class="tab-content">
+            <h2>Product Plug Negotiation Policy</h2>
+
+            <div class="section">
+                <h3>1. Overview</h3>
+                <p>The Product Plug Negotiation Policy allows eligible customers to request a price review when they find the same product offered at a lower price by a competitor. Our goal is to offer the most competitive pricing possible while maintaining product quality and availability.</p>
+            </div>
+
+            <div class="section">
+                <h3>2. Eligibility Requirements</h3>
+                <p>To request a negotiation or undercut, you must provide:</p>
+                <ul>
+                    <li>A valid link or proof of the competitor's current price</li>
+                    <li>Evidence that the competitor's product is the same model, condition, and configuration (new, used, refurbished, etc.)</li>
+                    <li>Proof that the competitor's price is publicly available and active at the time of verification</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>3. Verification Process</h3>
+                <p>Once a request is submitted, Product Plug will:</p>
+                <ol>
+                    <li>Verify the competitor's listed price</li>
+                    <li>Confirm that the product is in stock in our inventory</li>
+                    <li>Determine whether we can negotiate or undercut the competitor's pricing</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h3>4. Possible Outcomes</h3>
+                <p>If the item is in stock, we may:</p>
+                <ul>
+                    <li>Offer to negotiate the price with you, or</li>
+                    <li>Undercut the competitor's price if feasible</li>
+                </ul>
+                <p>Product Plug is not obligated to match or beat any price, and all price decisions are made at our sole discretion.</p>
+            </div>
+
+            <div class="info-box">
+                <h3>5. Exclusions</h3>
+                <p>The following are not eligible unless explicitly approved:</p>
+                <ul>
+                    <li>Flash sales, clearance sales, or limited-time promotions</li>
+                    <li>Pricing errors or misprints</li>
+                    <li>Bundles or multi-item offers</li>
+                    <li>Auction-based listings (eBay, OfferUp, Facebook Marketplace, etc.)</li>
+                    <li>Non-verifiable prices</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Referral Program -->
+        <div id="referral" class="tab-content">
+            <h2>Referral Policy</h2>
+
+            <div class="section">
+                <h3>1. Eligibility</h3>
+                <ul>
+                    <li>Referral rewards are available only to users with an active Product Plug account</li>
+                    <li>Users must be 13 years or older</li>
+                    <li>Referral is limited to users within the United States</li>
+                    <li>Users under 18 must have parental or guardian consent to participate</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>2. Referral Rewards</h3>
+                <ul>
+                    <li>Rewards may include promo codes, store credit, or other incentives as specified in the referral program announcement</li>
+                    <li>Rewards are issued after the referred user successfully completes a qualifying action, such as creating an account and placing an eligible order</li>
+                    <li>All rewards are subject to the terms and conditions of the referral program, including minimum order amounts and expiration dates</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>3. Redemption Rules</h3>
+                <ul>
+                    <li>Rewards must be applied according to instructions provided in the referral program</li>
+                    <li>Rewards cannot be redeemed for cash or applied to previous purchases unless explicitly stated</li>
+                    <li>Product Plug reserves the right to decline, revoke, or modify rewards if the referrer fails to meet eligibility requirements</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>4. Limitations & Exclusions</h3>
+                <ul>
+                    <li>Referrals from self-owned accounts, fake accounts, or fraudulent activity are strictly prohibited</li>
+                    <li>Rewards are non-transferable unless otherwise specified</li>
+                    <li>Product Plug reserves the right to limit the number of referrals per user, per program, or per promotion period</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>5. Abuse & Misuse</h3>
+                <p>Any attempt to manipulate the referral program may result in:</p>
+                <ul>
+                    <li>Revocation of referral rewards</li>
+                    <li>Suspension or termination of user accounts</li>
+                    <li>Legal action if applicable</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>6. Modifications & Termination</h3>
+                <p>Product Plug may modify, limit, or terminate the referral program at any time without prior notice. Users are responsible for reviewing referral program terms before participation.</p>
+            </div>
+        </div>
+
+        <!-- Toy Donation Program -->
+        <div id="donation" class="tab-content">
+            <h2>Product Plug Holiday Toy Donation Policy</h2>
+
+            <div class="section">
+                <p><strong>Policy Name:</strong> Product Plug Holiday Giving Initiative</p>
+                <p><strong>Effective Period:</strong> November 1 – December 15 (annually)</p>
+            </div>
+
+            <div class="section">
+                <h3>Overview</h3>
+                <p>During the holiday season, Product Plug encourages customers to support families in need by donating toys through our platform. To make giving easier, Product Plug reduces the cost of donated toys when customers participate.</p>
+            </div>
+
+            <div class="info-box">
+                <h3>How It Works</h3>
+                <p>When you <strong>purchase toys specifically for donation</strong> through the Product Plug app, Product Plug will <strong>discount $5 for every $30 you spend</strong> on those donation-designated toys.</p>
+                
+                <h4>Example:</h4>
+                <ul>
+                    <li>Spend $30 on toys to donate → You pay $25</li>
+                    <li>Spend $60 on toys to donate → You pay $50</li>
+                    <li>Spend $90 on toys to donate → You pay $75</li>
+                </ul>
+                
+                <p>The discount applies <strong>only to toys purchased for donation</strong>, not regular personal purchases.</p>
+            </div>
+
+            <div class="section">
+                <h3>Eligibility</h3>
+                <ul>
+                    <li>Applies to all toys purchased through Product Plug between November 1 and December 15 that are marked and confirmed as donation items at checkout</li>
+                    <li>Only completed, non-refunded donation purchases qualify</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Distribution of Donated Toys</h3>
+                <p>All donated toys will be:</p>
+                <ul>
+                    <li>Purchased brand new</li>
+                    <li>Handled directly by Product Plug</li>
+                    <li>Delivered to verified community organizations, shelters, or holiday charity programs serving families in need</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Program Limits & Modifications</h3>
+                <p>Product Plug may make adjustments to discount amounts, modify program details, or end the initiative early if necessary for fairness and sustainability. Any changes will be communicated promptly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+            
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
